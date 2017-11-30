@@ -14,17 +14,18 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j-version>1.7.12</slf4j-version>
   </properties>
-  <distributionManagement>
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>dev</id>
-      <name>Local repository</name>
-      <url>file://${user.home}/.m2/repository</url>
-      <layout>default</layout>
-    </repository>
-  </distributionManagement>
+
+
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.11</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>com.bootcamp</groupId>
       <artifactId>db-access</artifactId>
@@ -96,6 +97,47 @@
       <layout>default</layout>
     </repository>
   </distributionManagement>
+
+
+  <profiles>
+    <!-- en local -->
+    <profile>
+      <!--profil de production a publier-->
+      <id>local</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <resources>
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+          </resource>
+          <resource>
+            <directory>src/main/resources/local</directory>
+          </resource>
+
+        </resources>
+      </build>
+    </profile>
+
+    <profile>
+      <!--profil de production a publier-->
+      <id>dev</id>
+      <build>
+        <resources>
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+          </resource>
+          <resource>
+            <directory>src/main/resources/dev</directory>
+          </resource>
+
+        </resources>
+      </build>
+    </profile>
+  </profiles>
 
   <build>
     <finalName>rest.service.client</finalName>
