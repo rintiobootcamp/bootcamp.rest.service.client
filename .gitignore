@@ -1,4 +1,6 @@
 .idea
 target
 rest.service.client.iml
-src/main/resources/local
+
+/src/test/resources/local/
+/src/main/resources/local/
