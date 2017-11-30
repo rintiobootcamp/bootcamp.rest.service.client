@@ -15,8 +15,6 @@
     <slf4j-version>1.7.12</slf4j-version>
   </properties>
 
-
-
   <dependencies>
 
     <dependency>
