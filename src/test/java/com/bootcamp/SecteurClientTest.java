@@ -21,7 +21,7 @@ public class SecteurClientTest {
     public void getSecteurs() throws IOException{
         SecteurClient secteurClient = new SecteurClient();
         List<Secteur> secteurs = secteurClient.findAll();
-        GsonBuilder gsonBuilder = new GsonBuilder();
+
         Gson gson = new Gson();
 
             for(Secteur current:secteurs){
