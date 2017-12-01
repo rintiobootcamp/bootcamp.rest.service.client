@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PilierClientTest {
     @Test
-    public void getProjets() throws IOException {
+    public void getPiliers() throws IOException {
        PilierClient pilierClient = new PilierClient();
         List<Pilier> piliers = pilierClient.findAll();
         Gson gson = new Gson();
@@ -22,9 +22,8 @@ public class PilierClientTest {
         }
 
     }
-
     @Test
-    public void getProjetById() throws IOException {
+    public void getPilierById() throws IOException {
         PilierClient pilierClient = new PilierClient();
         Pilier pilier = pilierClient.getById(1);
         Gson gson = new Gson();
