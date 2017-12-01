@@ -42,6 +42,7 @@ public class SecteurClient implements AppConstant {
         Type typeOfObjectsListNew = new TypeToken<List<Secteur>>() {}.getType();
         List<Secteur> secteurs = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
 
+
         return secteurs;
 
     }
