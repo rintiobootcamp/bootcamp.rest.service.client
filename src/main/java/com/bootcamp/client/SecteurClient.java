@@ -37,6 +37,8 @@ public class SecteurClient implements AppConstant {
     public Secteur getById(int id) throws IOException{
         PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
         String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-secteur-byId");
+        String uriSufix="/"+id;
+        uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
         Secteur secteur = GsonUtils.getObjectFromJson(jsonData,Secteur.class);

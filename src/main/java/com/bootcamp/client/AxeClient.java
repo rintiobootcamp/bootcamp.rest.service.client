@@ -41,6 +41,8 @@ public class AxeClient implements AppConstant {
     public Axe getById(int id) throws IOException{
         PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
         String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-axe-byId");
+        String uriSufix="/"+id;
+        uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
         Axe axe = GsonUtils.getObjectFromJson(jsonData,Axe.class);

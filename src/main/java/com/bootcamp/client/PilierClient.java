@@ -38,7 +38,10 @@ public class PilierClient implements AppConstant {
 
     public Pilier getById(int id) throws IOException{
         PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-pilier-byId");
+
+        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-pilier");
+        String uriSufix="/"+id;
+        uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
         Pilier pilier = GsonUtils.getObjectFromJson(jsonData,Pilier.class);
