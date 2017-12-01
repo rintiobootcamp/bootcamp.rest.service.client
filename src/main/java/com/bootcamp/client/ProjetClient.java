@@ -36,4 +36,14 @@ public class ProjetClient implements AppConstant {
 
     }
 
+    public Projet getById(int id) throws IOException{
+        PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
+        String uri=propertiesFileUtils.getAppUrl("projet-service-fonctionnel-get-projet-byId");
+        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
+        String jsonData = response.getBody();
+        Projet projet = GsonUtils.getObjectFromJson(jsonData,Projet.class);
+        return projet;
+
+    }
+
 }

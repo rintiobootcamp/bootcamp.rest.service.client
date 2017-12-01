@@ -1,11 +1,19 @@
 package com.bootcamp.client;
 
+
+import com.bootcamp.commons.utils.GsonUtils;
 import com.bootcamp.constants.AppConstant;
 import com.bootcamp.entities.Axe;
+import com.bootcamp.utils.PropertiesFileUtils;
+import com.google.gson.reflect.TypeToken;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
+
 
 public class AxeClient implements AppConstant {
     RestTemplate restTemplate;
@@ -17,28 +25,26 @@ public class AxeClient implements AppConstant {
 
 
 
-    public Axe[] findAll() throws IOException {
-        String uri =  AXE_CLIENT_BASE_URI+AXE_CLIENT_GET_URI;
-        Axe[] axes = restTemplate.getForObject(uri,  Axe[].class);
+    public List<Axe> findAll() throws IOException {
+        PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
+        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-axes");
+        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
+        String jsonData = response.getBody();
+        Type typeOfObjectsListNew = new TypeToken<List<Axe>>() {}.getType();
+        List<Axe> axes = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
+
 
         return axes;
 
     }
 
-//    public AxeWss findAll(String query, String fields) throws IOException {
-//        String uri =  AXE_CLIENT_BASE_URI+AXE_CLIENT_GET_URI;
-//        AxeWss axeWss = restTemplate.getForObject(uri,  AxeWss.class);
-//
-//        return axeWss;
-//
-//    }
-//
-//    public AxeWs create(Axe axe) throws UnsupportedEncodingException, IOException{
-//        String uri =  AXE_CLIENT_BASE_URI+AXE_CLIENT_CREATE_URI;
-//        HttpEntity<Axe> request = new HttpEntity<>(axe);
-//        AxeWs axeWs = restTemplate.postForObject(uri, request, AxeWs.class);
-//
-//        return axeWs;
-//    }
+    public Axe getById(int id) throws IOException{
+        PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
+        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-axe-byId");
+        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
+        String jsonData = response.getBody();
+        Axe axe = GsonUtils.getObjectFromJson(jsonData,Axe.class);
+        return axe;
 
+    }
 }

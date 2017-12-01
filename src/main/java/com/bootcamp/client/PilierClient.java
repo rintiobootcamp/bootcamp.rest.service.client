@@ -1,13 +1,19 @@
 package com.bootcamp.client;
 
+
+import com.bootcamp.commons.utils.GsonUtils;
 import com.bootcamp.constants.AppConstant;
 import com.bootcamp.entities.Pilier;
+import com.bootcamp.utils.PropertiesFileUtils;
+import com.google.gson.reflect.TypeToken;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import java.lang.reflect.Type;
+import java.util.List;
+
 
 public class PilierClient implements AppConstant {
 
@@ -18,35 +24,26 @@ public class PilierClient implements AppConstant {
         restTemplate = new RestTemplate(factory);
     }
 
-    public Pilier[] findAll() throws IOException {
-        String uri = PILIER_CLIENT_BASE_URI + PILIER_CLIENT_GET_URI;
-        Pilier[] piliers = restTemplate.getForObject(uri, Pilier[].class);
+    public List<Pilier> findAll() throws IOException {
+        PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
+        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-pilier");
+        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
+        String jsonData = response.getBody();
+        Type typeOfObjectsListNew = new TypeToken<List<Pilier>>() {}.getType();
+        List<Pilier> piliers = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
 
         return piliers;
 
     }
 
-//    public PilierWss findAll() throws IOException {
-//        String uri =  AXE_CLIENT_BASE_URI+AXE_CLIENT_GET_URI;
-//        PilierWss pilierWss = restTemplate.getForObject(uri,  PilierWss.class);
-//
-//        return pilierWss;
-//
-//    }
-//
-//    public PilierWss findAll(String query, String fields) throws IOException {
-//        String uri =  AXE_CLIENT_BASE_URI+AXE_CLIENT_GET_URI;
-//        PilierWss pilierWss = restTemplate.getForObject(uri,  PilierWss.class);
-//
-//        return pilierWss;
-//
-//    }
-//
-//    public PilierWs create(Pilier pilier) throws UnsupportedEncodingException, IOException{
-//        String uri =  AXE_CLIENT_BASE_URI+AXE_CLIENT_CREATE_URI;
-//        HttpEntity<Pilier> request = new HttpEntity<>(pilier);
-//        PilierWs pilierWs = restTemplate.postForObject(uri, request, PilierWs.class);
-//
-//        return pilierWs;
-//    }
+    public Pilier getById(int id) throws IOException{
+        PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
+        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-pilier-byId");
+        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
+        String jsonData = response.getBody();
+        Pilier pilier = GsonUtils.getObjectFromJson(jsonData,Pilier.class);
+        return pilier;
+
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.bootcamp;
 
+import com.bootcamp.client.ProjetClient;
 import com.bootcamp.client.SecteurClient;
 import com.bootcamp.commons.utils.GsonUtils;
+import com.bootcamp.entities.Projet;
 import com.bootcamp.entities.Secteur;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,5 +29,14 @@ public class SecteurClientTest {
                 System.out.println(data);
             }
 
+    }
+
+    @Test
+    public void getProjetById() throws IOException {
+        SecteurClient secteurClient = new SecteurClient();
+        Secteur secteur = secteurClient.getById(1);
+        Gson gson = new Gson();
+        String data = gson.toJson(secteur);
+        System.out.println(data);
     }
 }
