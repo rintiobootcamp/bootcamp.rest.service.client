@@ -1,28 +1,16 @@
 package com.bootcamp.client;
 
-
 import com.bootcamp.constants.AppConstant;
-import com.bootcamp.entities.Axe;
 import com.bootcamp.entities.Pilier;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
-import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 public class PilierClient implements AppConstant {
+
     RestTemplate restTemplate;
 
     public PilierClient() {
@@ -30,7 +18,13 @@ public class PilierClient implements AppConstant {
         restTemplate = new RestTemplate(factory);
     }
 
+    public Pilier[] findAll() throws IOException {
+        String uri = PILIER_CLIENT_BASE_URI + PILIER_CLIENT_GET_URI;
+        Pilier[] piliers = restTemplate.getForObject(uri, Pilier[].class);
 
+        return piliers;
+
+    }
 
 //    public PilierWss findAll() throws IOException {
 //        String uri =  AXE_CLIENT_BASE_URI+AXE_CLIENT_GET_URI;
@@ -55,5 +49,4 @@ public class PilierClient implements AppConstant {
 //
 //        return pilierWs;
 //    }
-
 }
