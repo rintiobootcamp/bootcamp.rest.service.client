@@ -6,8 +6,11 @@ import com.bootcamp.constants.AppConstant;
 import com.bootcamp.entities.Pilier;
 import com.bootcamp.utils.PropertiesFileUtils;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -18,14 +21,15 @@ import java.util.List;
 public class PilierClient implements AppConstant {
 
     RestTemplate restTemplate;
+    PropertiesFileUtils propertiesFileUtils;
 
     public PilierClient() {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
         restTemplate = new RestTemplate(factory);
+        propertiesFileUtils= new PropertiesFileUtils();
     }
 
     public List<Pilier> findAll() throws IOException {
-        PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
         String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-pilier");
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
@@ -33,12 +37,25 @@ public class PilierClient implements AppConstant {
         List<Pilier> piliers = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
 
         return piliers;
+    }
 
+    public Pilier create(Pilier pilier) throws IOException {
+        String uri= propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-create-pilier");
+
+        String requestBody = GsonUtils.toJSONWithoutClassName(pilier);
+        MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();
+        headers.add("Accept", "application/json");
+        headers.add("Content-Type", "application/json");
+        HttpEntity request = new HttpEntity(requestBody, headers);
+
+        String apiResponse = restTemplate.postForObject(uri,
+                request, String.class);
+        pilier = GsonUtils.getObjectFromJson(apiResponse, Pilier.class);
+
+        return pilier;
     }
 
     public Pilier getById(int id) throws IOException{
-        PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
-
         String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-pilier");
         String uriSufix="/"+id;
         uri+=uriSufix;
