@@ -24,7 +24,7 @@ public class MediaClient implements AppConstant {
 
     public List<Media> getByEntityTypeAndEntityId(int entityId, String entityType) throws IOException {
         PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("media-service-fonctionnel-get-axe-entityId-and-entityType");
+        String uri=propertiesFileUtils.getAppUrl("media-service-fonctionnel-get-by-entityId-and-entityType");
         uri= uri+"/"+entityId+"/"+entityType;
 
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);

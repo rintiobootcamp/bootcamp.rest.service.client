@@ -40,7 +40,7 @@ public class ProjetClient implements AppConstant {
     }
 
     public Projet create(Projet projet) throws IOException {
-        String uri= propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-create-projet");
+        String uri= propertiesFileUtils.getAppUrl("projet-service-fonctionnel-create-projet");
 
         String requestBody = GsonUtils.toJSONWithoutClassName(projet);
         MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();
