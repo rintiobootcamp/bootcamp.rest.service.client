@@ -2,11 +2,10 @@ package com.bootcamp.client;
 
 import com.bootcamp.commons.enums.EntityType;
 import com.bootcamp.commons.utils.GsonUtils;
+import com.bootcamp.commons.ws.usecases.pivotone.NoteWS;
 import com.bootcamp.constants.AppConstant;
-import com.bootcamp.entities.Axe;
 import com.bootcamp.entities.Note;
 import com.bootcamp.utils.PropertiesFileUtils;
-import com.google.gson.reflect.TypeToken;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -15,8 +14,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
 
 /**
  *
@@ -33,15 +30,15 @@ public class NoteClient implements AppConstant {
         propertiesFileUtils = new PropertiesFileUtils();
     }
     
-    public Note getNote(EntityType entityType, int id) throws IOException {
+    public NoteWS getNote(String entityType, int id) throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
         String uri = propertiesFileUtils.getAppUrl("note-service-fonctionnel-get-note");
         
-        String uriSufix="/";
+        String uriSufix="/"+entityType+"/"+id;
         uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
-        Note note  = GsonUtils.getObjectFromJson(jsonData,Note.class);
+        NoteWS note  = GsonUtils.getObjectFromJson(jsonData,NoteWS.class);
         return note;
     }
     
