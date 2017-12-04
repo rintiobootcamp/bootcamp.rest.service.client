@@ -18,4 +18,13 @@ public interface AppConstant {
     public static String PROJET_CLIENT_BASE_URI="http://localhost:8081/rest-service/";
     public static  String PROJET_CLIENT_CREATE_URI="";
     public static String PROJET_CLIENT_GET_URI="";
+    
+    public static String NOTE_CLIENT_BASE_URI="http://localhost:8081/rest-service/";
+    public static  String NOTE_CLIENT_CREATE_URI="";
+    public static String NOTE_CLIENT_GET_URI="";
+    
+    public static String LIKE_CLIENT_BASE_URI="http://localhost:8081/rest-service/";
+    public static  String LIKE_CLIENT_CREATE_URI="";
+    public static String LIKE_CLIENT_GET_URI="";
+    
 }
