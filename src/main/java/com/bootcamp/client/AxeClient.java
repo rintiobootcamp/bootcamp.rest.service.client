@@ -32,7 +32,7 @@ public class AxeClient implements AppConstant {
 
     public List<Axe> findAll() throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-axes");
+        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-axe");
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
         Type typeOfObjectsListNew = new TypeToken<List<Axe>>() {}.getType();
@@ -59,7 +59,7 @@ public class AxeClient implements AppConstant {
 
     public Axe getById(int id) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-axe-byId");
+        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-axe");
         String uriSufix="/"+id;
         uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
