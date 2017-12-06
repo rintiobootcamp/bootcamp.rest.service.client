@@ -41,7 +41,7 @@ public LikeWS getClient(String entityType, int id) throws IOException {
     }
     
     public LikeWS createLike(LikeWS likeWS) throws IOException {
-        String uri= propertiesFileUtils.getAppUrl("like-service-fonctionnel-create-like");
+        String uri= propertiesFileUtils.getAppUrl("like-service-fonctionnel-create");
 
         String requestBody = GsonUtils.toJSONWithoutClassName(likeWS);
         MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();

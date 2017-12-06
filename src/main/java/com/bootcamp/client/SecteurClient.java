@@ -55,7 +55,7 @@ public class SecteurClient implements AppConstant {
 
     public Secteur getById(int id) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-secteur-byId");
+        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-secteur");
         String uriSufix="/"+id;
         uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
