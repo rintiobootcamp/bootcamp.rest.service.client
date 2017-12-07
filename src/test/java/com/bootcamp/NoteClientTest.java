@@ -16,7 +16,7 @@ import java.util.List;
 
 public class NoteClientTest {
 
-    @Test
+    //@Test
     public void getNote() throws IOException {
         NoteClient noteClient = new NoteClient();
         NoteWS note = noteClient.getNote(EntityType.PROJET.name(), 7);
