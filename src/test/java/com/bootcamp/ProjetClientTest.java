@@ -24,12 +24,13 @@ public class ProjetClientTest {
 
     }
 
-    @Test
-    public void getProjetById() throws IOException {
+    //@Test
+    /*public void getProjetById() throws IOException {
         ProjetClient projetClient = new ProjetClient();
         Projet projet = projetClient.getById(1);
         Gson gson = new Gson();
         String data = gson.toJson(projet);
         System.out.println(data);
-    }
+    }*/
+
 }
