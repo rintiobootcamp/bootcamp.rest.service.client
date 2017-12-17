@@ -45,7 +45,21 @@ public class CommentaireClient implements AppConstant {
 //        return commentaire;
 //    }
 
-    public List<Commentaire> getByEntity(String entityType,int entityId) throws IOException{
+//    public List<Commentaire> getByEntity(String entityType,int entityId) throws IOException{
+//        propertiesFileUtils= new PropertiesFileUtils();
+//        String uri=propertiesFileUtils.getAppUrl("commentaire-service-fonctionnel-get-Commentaire-by-entity");
+//        String uriSufix="/"+entityType+"/"+entityId;
+//        uri+=uriSufix;
+//        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
+//        String jsonData = response.getBody();
+//        Type typeOfObjectsListNew = new TypeToken<List<Commentaire>>() {}.getType();
+//        List<Commentaire> commentaires = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
+//
+//        return commentaires;
+//
+//    }
+
+    public List<Commentaire> getCommentByEntity(String entityType,int entityId) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
         String uri=propertiesFileUtils.getAppUrl("commentaire-service-fonctionnel-get-Commentaire-by-entity");
         String uriSufix="/"+entityType+"/"+entityId;
@@ -58,4 +72,32 @@ public class CommentaireClient implements AppConstant {
         return commentaires;
 
     }
+
+    public List<Commentaire> getAllCommentByAllEntity(String entityType) throws IOException{
+        propertiesFileUtils= new PropertiesFileUtils();
+        String uri=propertiesFileUtils.getAppUrl("commentaire-service-fonctionnel-get-AllComment-by-Allentity");
+        String uriSufix="/"+entityType;
+        uri+=uriSufix;
+        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
+        String jsonData = response.getBody();
+        Type typeOfObjectsListNew = new TypeToken<List<Commentaire>>() {}.getType();
+        List<Commentaire> commentaires = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
+        return commentaires;
+
+    }
+
+//
+//    public List<Commentaire> getByEntityTypeClient(String entityType) throws IOException {
+//        propertiesFileUtils= new PropertiesFileUtils();
+//        String uri = propertiesFileUtils.getAppUrl("like-service-fonctionnel-get-like");
+//
+//        String uriSufix="/"+entityType;
+//        uri+=uriSufix;
+//        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
+//        String jsonData = response.getBody();
+//        List<Commentaire> commentaires  = GsonUtils.getObjectFromJson(jsonData, List.class);
+//        return commentaires;
+//    }
+
+
 }
