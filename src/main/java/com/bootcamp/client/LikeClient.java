@@ -3,6 +3,7 @@ package com.bootcamp.client;
 import com.bootcamp.commons.utils.GsonUtils;
 import com.bootcamp.commons.ws.usecases.pivotone.LikeWS;
 import com.bootcamp.constants.AppConstant;
+import com.bootcamp.entities.LikeTable;
 import com.bootcamp.utils.PropertiesFileUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -11,6 +12,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -31,7 +34,8 @@ public class LikeClient implements AppConstant {
 public LikeWS getClient(String entityType, int id) throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
         String uri = propertiesFileUtils.getAppUrl("like-service-fonctionnel-get-like");
-        
+
+
         String uriSufix="/"+entityType+"/"+id;
         uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
@@ -54,6 +58,32 @@ public LikeWS getClient(String entityType, int id) throws IOException {
         likeWS = GsonUtils.getObjectFromJson(apiResponse, LikeWS.class);
 
         return likeWS;
+    }
+
+
+    public List<LikeTable> getByEntityTypeClient(String entityType) throws IOException {
+        propertiesFileUtils= new PropertiesFileUtils();
+        String uri = propertiesFileUtils.getAppUrl("like-service-fonctionnel-get-like");
+
+        String uriSufix="/"+entityType;
+        uri+=uriSufix;
+        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
+        String jsonData = response.getBody();
+        List<LikeTable> likes  = GsonUtils.getObjectFromJson(jsonData, List.class);
+        return likes;
+    }
+
+
+    public List<LikeTable> getAllLikeOrUnlikeByEntity(String entityType) throws IOException {
+        propertiesFileUtils= new PropertiesFileUtils();
+        String uri = propertiesFileUtils.getAppUrl("like-service-fonctionnel-get-Alllike-by-Allentity");
+
+        String uriSufix="/"+entityType;
+        uri+=uriSufix;
+        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
+        String jsonData = response.getBody();
+        List<LikeTable> likes  = GsonUtils.getObjectFromJson(jsonData, List.class);
+        return likes;
     }
 
 }
