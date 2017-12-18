@@ -3,7 +3,6 @@ package com.bootcamp.client;
 import com.bootcamp.commons.utils.GsonUtils;
 import com.bootcamp.constants.AppConstant;
 import com.bootcamp.entities.Media;
-import com.bootcamp.entities.Projet;
 import com.bootcamp.utils.PropertiesFileUtils;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +23,8 @@ public class MediaClient implements AppConstant {
 
     public List<Media> getByEntityTypeAndEntityId(int entityId, String entityType) throws IOException {
         PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("media-service-fonctionnel-get-by-entityId-and-entityType");
-        uri= uri+"/"+entityId+"/"+entityType;
+        String uri=propertiesFileUtils.getAppUrl("media-service-fonctionnel-get-by-entity");
+        uri= uri+"/"+entityType+"/"+entityId;
 
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
