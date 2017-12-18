@@ -1,9 +1,7 @@
 package com.bootcamp.client;
 
-import com.bootcamp.commons.enums.EntityType;
 import com.bootcamp.commons.utils.GsonUtils;
 import com.bootcamp.commons.ws.usecases.pivotone.NoteWS;
-import com.bootcamp.constants.AppConstant;
 import com.bootcamp.entities.Note;
 import com.bootcamp.utils.PropertiesFileUtils;
 import org.springframework.http.HttpEntity;
@@ -19,7 +17,7 @@ import java.io.IOException;
  *
  * @author leger
  */
-public class NoteClient implements AppConstant {
+public class NoteClient{
 
     RestTemplate restTemplate;
     PropertiesFileUtils propertiesFileUtils;
@@ -32,7 +30,7 @@ public class NoteClient implements AppConstant {
     
     public NoteWS getNote(String entityType, int id) throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri = propertiesFileUtils.getAppUrl("note-service-fonctionnel-get-note");
+        String uri = propertiesFileUtils.getAppUrl("note.getAllNotes");
         
         String uriSufix="/"+entityType+"/"+id;
         uri+=uriSufix;
@@ -43,7 +41,7 @@ public class NoteClient implements AppConstant {
     }
     
     public Note createNote(Note note) throws IOException {
-        String uri= propertiesFileUtils.getAppUrl("note-service-fonctionnel-create-note");
+        String uri= propertiesFileUtils.getAppUrl("note.create");
 
         String requestBody = GsonUtils.toJSONWithoutClassName(note);
         MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();

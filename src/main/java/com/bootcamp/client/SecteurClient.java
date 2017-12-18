@@ -1,7 +1,6 @@
 package com.bootcamp.client;
 
 import com.bootcamp.commons.utils.GsonUtils;
-import com.bootcamp.constants.AppConstant;
 import com.bootcamp.entities.Secteur;
 import com.bootcamp.utils.PropertiesFileUtils;
 import com.google.gson.reflect.TypeToken;
@@ -16,7 +15,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class SecteurClient implements AppConstant {
+public class SecteurClient {
     RestTemplate restTemplate;
     PropertiesFileUtils propertiesFileUtils;
 
@@ -28,7 +27,7 @@ public class SecteurClient implements AppConstant {
 
     public  List<Secteur>  findAll() throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-secteur");
+        String uri=propertiesFileUtils.getAppUrl("categorie.getAllSecteu");
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
         Type typeOfObjectsListNew = new TypeToken<List<Secteur>>() {}.getType();
@@ -38,7 +37,7 @@ public class SecteurClient implements AppConstant {
     }
 
     public Secteur create(Secteur secteur) throws IOException {
-        String uri= propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-create-secteur");
+        String uri= propertiesFileUtils.getAppUrl("categorie.createSecteur");
 
         String requestBody = GsonUtils.toJSONWithoutClassName(secteur);
         MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();
@@ -55,7 +54,7 @@ public class SecteurClient implements AppConstant {
 
     public Secteur getById(int id) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-secteur");
+        String uri=propertiesFileUtils.getAppUrl("categorie.getSecteurById");
         String uriSufix="/"+id;
         uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);

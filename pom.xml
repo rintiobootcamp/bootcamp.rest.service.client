@@ -13,6 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j-version>1.7.12</slf4j-version>
+    <config.home>/home/config/dev</config.home>
   </properties>
   <dependencies>
 
@@ -111,7 +112,7 @@
             <filtering>true</filtering>
           </resource>
           <resource>
-            <directory>src/main/resources/local</directory>
+            <directory>${config.home}</directory>
           </resource>
 
         </resources>
@@ -128,7 +129,7 @@
             <filtering>true</filtering>
           </resource>
           <resource>
-            <directory>src/main/resources/dev</directory>
+            <directory>${config.home}</directory>
           </resource>
 
         </resources>

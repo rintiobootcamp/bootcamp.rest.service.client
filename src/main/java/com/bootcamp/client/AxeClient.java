@@ -2,7 +2,6 @@ package com.bootcamp.client;
 
 
 import com.bootcamp.commons.utils.GsonUtils;
-import com.bootcamp.constants.AppConstant;
 import com.bootcamp.entities.Axe;
 import com.bootcamp.utils.PropertiesFileUtils;
 import com.google.gson.reflect.TypeToken;
@@ -18,7 +17,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
-public class AxeClient implements AppConstant {
+public class AxeClient {
     RestTemplate restTemplate;
     PropertiesFileUtils propertiesFileUtils;
 
@@ -32,7 +31,7 @@ public class AxeClient implements AppConstant {
 
     public List<Axe> findAll() throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-axe");
+        String uri=propertiesFileUtils.getAppUrl("categorie.getAllPilier");
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
         Type typeOfObjectsListNew = new TypeToken<List<Axe>>() {}.getType();
@@ -42,7 +41,7 @@ public class AxeClient implements AppConstant {
     }
 
     public Axe create(Axe axe) throws IOException {
-        String uri= propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-create-axe");
+        String uri= propertiesFileUtils.getAppUrl("categorie.createAxe");
 
         String requestBody = GsonUtils.toJSONWithoutClassName(axe);
         MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();
@@ -59,7 +58,7 @@ public class AxeClient implements AppConstant {
 
     public Axe getById(int id) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-axe");
+        String uri=propertiesFileUtils.getAppUrl("categorie.getAxeById");
         String uriSufix="/"+id;
         uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);

@@ -10,7 +10,7 @@ public class PropertiesFileUtils {
 
     public String getAppUrl(String url) throws IOException {
         Properties props = new Properties();
-        props.load(getClass().getResourceAsStream("/app-url.properties"));
+        props.load(getClass().getResourceAsStream("/clients.properties"));
         return props.getProperty(url);
     }
 }

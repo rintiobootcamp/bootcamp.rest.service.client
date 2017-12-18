@@ -1,10 +1,7 @@
 package com.bootcamp.client;
 
 import com.bootcamp.commons.utils.GsonUtils;
-import com.bootcamp.constants.AppConstant;
-import com.bootcamp.entities.Axe;
 import com.bootcamp.entities.Projet;
-import com.bootcamp.entities.Secteur;
 import com.bootcamp.utils.PropertiesFileUtils;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.http.HttpEntity;
@@ -18,7 +15,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class ProjetClient implements AppConstant {
+public class ProjetClient {
     RestTemplate restTemplate;
     PropertiesFileUtils propertiesFileUtils;
 
@@ -30,7 +27,7 @@ public class ProjetClient implements AppConstant {
 
     public List<Projet> findAll() throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("projet-service-fonctionnel-get-all-projet");
+        String uri=propertiesFileUtils.getAppUrl("projet.getAllProjet");
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
         Type typeOfObjectsListNew = new TypeToken<List<Projet>>() {}.getType();
@@ -40,7 +37,7 @@ public class ProjetClient implements AppConstant {
     }
 
     public Projet create(Projet projet) throws IOException {
-        String uri= propertiesFileUtils.getAppUrl("projet-service-fonctionnel-create-projet");
+        String uri= propertiesFileUtils.getAppUrl("projet.createProjet");
 
         String requestBody = GsonUtils.toJSONWithoutClassName(projet);
         MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();
@@ -57,7 +54,7 @@ public class ProjetClient implements AppConstant {
 
     public Projet getById(int id) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("projet-service-fonctionnel-get-projet-byId");
+        String uri=propertiesFileUtils.getAppUrl("projet.getProjetById");
         String uriSufix="/"+id;
         uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);

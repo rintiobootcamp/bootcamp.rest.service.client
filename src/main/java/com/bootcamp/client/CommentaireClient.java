@@ -2,16 +2,11 @@ package com.bootcamp.client;
 
 
 import com.bootcamp.commons.utils.GsonUtils;
-import com.bootcamp.constants.AppConstant;
 import com.bootcamp.entities.Commentaire;
-import com.bootcamp.entities.Pilier;
 import com.bootcamp.utils.PropertiesFileUtils;
 import com.google.gson.reflect.TypeToken;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -19,7 +14,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
-public class CommentaireClient implements AppConstant {
+public class CommentaireClient {
     RestTemplate restTemplate;
     PropertiesFileUtils propertiesFileUtils;
 
@@ -61,8 +56,10 @@ public class CommentaireClient implements AppConstant {
 
     public List<Commentaire> getCommentByEntity(String entityType,int entityId) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("commentaire-service-fonctionnel-get-Commentaire-by-entity");
+        String uri=propertiesFileUtils.getAppUrl("commentaire.getAllByEntityType");
+
         String uriSufix="/"+entityType+"/"+entityId;
+        System.out.println("***le lien***** "+uri);
         uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
@@ -73,11 +70,12 @@ public class CommentaireClient implements AppConstant {
 
     }
 
-    public List<Commentaire> getAllCommentByAllEntity(String entityType) throws IOException{
+    public List<Commentaire> getAllCommentByAllEntity(String entityType,long startDate, long endDate) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("commentaire-service-fonctionnel-get-AllComment-by-Allentity");
-        String uriSufix="/"+entityType;
+        String uri=propertiesFileUtils.getAppUrl("commentaire.getAllByEntity");
+        String uriSufix="/"+entityType+"?startDate="+startDate+"&endDate="+endDate;
         uri+=uriSufix;
+        System.out.println("***** Le suffixe ****"+uri);
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
         Type typeOfObjectsListNew = new TypeToken<List<Commentaire>>() {}.getType();

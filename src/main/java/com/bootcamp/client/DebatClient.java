@@ -32,12 +32,13 @@ public class DebatClient {
 //        return debats;
 //    }
 
-    public List<Debat> getByEntityType(String entityType) throws IOException {
+    public List<Debat> getByEntityType(String entityType ,long startDate,long endDate) throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri = propertiesFileUtils.getAppUrl("debat-service-fonctionnel-get-AllDebat-by-Allentity");
-
-        String uriSufix="/"+entityType;
+        String uri = propertiesFileUtils.getAppUrl("debat.getAllByAllentity");
+//        System.out.println("***le lien***** "+uri);
+        String uriSufix="/"+entityType+"?startDate="+startDate+"&endDate="+endDate;
         uri+=uriSufix;
+        System.out.println("***le PREFIX***** "+uri);
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
         List<Debat> debats  = GsonUtils.getObjectFromJson(jsonData, List.class);

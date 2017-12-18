@@ -2,7 +2,6 @@ package com.bootcamp.client;
 
 
 import com.bootcamp.commons.utils.GsonUtils;
-import com.bootcamp.constants.AppConstant;
 import com.bootcamp.entities.Pilier;
 import com.bootcamp.utils.PropertiesFileUtils;
 import com.google.gson.reflect.TypeToken;
@@ -18,7 +17,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
-public class PilierClient implements AppConstant {
+public class PilierClient {
 
     RestTemplate restTemplate;
     PropertiesFileUtils propertiesFileUtils;
@@ -30,7 +29,7 @@ public class PilierClient implements AppConstant {
     }
 
     public List<Pilier> findAll() throws IOException {
-        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-pilier");
+        String uri=propertiesFileUtils.getAppUrl("categorie.getAllPilier");
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
         String jsonData = response.getBody();
         Type typeOfObjectsListNew = new TypeToken<List<Pilier>>() {}.getType();
@@ -40,7 +39,7 @@ public class PilierClient implements AppConstant {
     }
 
     public Pilier create(Pilier pilier) throws IOException {
-        String uri= propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-create-pilier");
+        String uri= propertiesFileUtils.getAppUrl("categorie.createPilier");
 
         String requestBody = GsonUtils.toJSONWithoutClassName(pilier);
         MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();
@@ -56,7 +55,7 @@ public class PilierClient implements AppConstant {
     }
 
     public Pilier getById(int id) throws IOException{
-        String uri=propertiesFileUtils.getAppUrl("categorie-service-fonctionnel-get-all-pilier");
+        String uri=propertiesFileUtils.getAppUrl("categorie.getAllByIdPilier");
         String uriSufix="/"+id;
         uri+=uriSufix;
         ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
