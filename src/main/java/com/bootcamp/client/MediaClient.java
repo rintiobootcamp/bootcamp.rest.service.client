@@ -22,6 +22,7 @@ public class MediaClient {
 
     public List<Media> getByEntityTypeAndEntityId(int entityId, String entityType) throws IOException {
         PropertiesFileUtils propertiesFileUtils= new PropertiesFileUtils();
+
         String uri=propertiesFileUtils.getAppUrl("media.getByEntity");
         uri= uri+"/"+entityId+"/"+entityType;
 
