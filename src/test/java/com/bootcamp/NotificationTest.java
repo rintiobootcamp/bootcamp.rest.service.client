@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
  * @author Bello
  */
 public class NotificationTest {
-    @Test
+    //@Test
     public void testNotification (){
         NotificationClient client = new NotificationClient();
         NotificationInput input = new NotificationInput();
