@@ -16,7 +16,11 @@
     <config.home>/home/config/dev</config.home>
   </properties>
   <dependencies>
-
+    <dependency>
+      <groupId>io.sentry</groupId>
+      <artifactId>sentry-log4j2</artifactId>
+      <version>1.6.3</version>
+    </dependency>
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
@@ -40,6 +44,13 @@
       <groupId>com.bootcamp</groupId>
       <artifactId>commons</artifactId>
       <version>1.0-SNAPSHOT</version>
+<exclusions>
+  <exclusion>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
+  </exclusion>
+</exclusions>
+
     </dependency>
 
     <dependency>
