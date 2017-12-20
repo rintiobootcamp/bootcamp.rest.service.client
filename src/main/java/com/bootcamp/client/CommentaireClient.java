@@ -33,11 +33,10 @@ public class CommentaireClient {
         String uriSufix="/"+entityType+"/"+entityId;
         System.out.println("***le lien***** "+uri);
         uri+=uriSufix;
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
+         String response = restTemplate.getForObject(uri,String.class);
         Type typeOfObjectsListNew = new TypeToken<List<Commentaire>>() {
         }.getType();
-        List<Commentaire> commentaires = GsonUtils.getObjectFromJson(jsonData, typeOfObjectsListNew);
+        List<Commentaire> commentaires = GsonUtils.getObjectFromJson(response, typeOfObjectsListNew);
 
         return commentaires;
     }
@@ -48,11 +47,10 @@ public class CommentaireClient {
         String uri=propertiesFileUtils.getAppUrl("commentaire.getAllByEntity");
         String uriSufix="/"+entityType+"?startDate="+startDate+"&endDate="+endDate;
         uri+=uriSufix;
-        System.out.println("***** Le suffixe ****"+uri);
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
+
+        String response = restTemplate.getForObject(uri,String.class);
         Type typeOfObjectsListNew = new TypeToken<List<Commentaire>>() {}.getType();
-        List<Commentaire> commentaires = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
+        List<Commentaire> commentaires = GsonUtils.getObjectFromJson(response,typeOfObjectsListNew);
         return commentaires;
 
     }

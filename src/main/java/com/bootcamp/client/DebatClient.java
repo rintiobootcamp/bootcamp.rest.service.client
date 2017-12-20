@@ -1,13 +1,16 @@
 package com.bootcamp.client;
 
 import com.bootcamp.commons.utils.GsonUtils;
+import com.bootcamp.entities.Commentaire;
 import com.bootcamp.entities.Debat;
 import com.bootcamp.utils.PropertiesFileUtils;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class DebatClient {
@@ -39,9 +42,9 @@ public class DebatClient {
         String uriSufix="/"+entityType+"?startDate="+startDate+"&endDate="+endDate;
         uri+=uriSufix;
         System.out.println("***le PREFIX***** "+uri);
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
-        List<Debat> debats  = GsonUtils.getObjectFromJson(jsonData, List.class);
+        String response = restTemplate.getForObject(uri,String.class);
+        Type typeOfObjectsListNew = new TypeToken<List<Debat>>() {}.getType();
+        List<Debat> debats  = GsonUtils.getObjectFromJson(response, typeOfObjectsListNew);
         return debats;
     }
 

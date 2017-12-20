@@ -4,7 +4,7 @@
 
   <groupId>com.bootcamp</groupId>
   <artifactId>rest.service.client</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>rest.service.client</name>
@@ -13,7 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j-version>1.7.12</slf4j-version>
-    <config.home>${user.home}/config/dev</config.home>
+    <config.home>/home/config/dev</config.home>
   </properties>
   <dependencies>
 

@@ -32,10 +32,9 @@ public class AxeClient {
     public List<Axe> findAll() throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
         String uri=propertiesFileUtils.getAppUrl("categorie.getAllPilier");
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
+        String response = restTemplate.getForObject(uri,String.class);
         Type typeOfObjectsListNew = new TypeToken<List<Axe>>() {}.getType();
-        List<Axe> axes = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
+        List<Axe> axes = GsonUtils.getObjectFromJson(response,typeOfObjectsListNew);
 
         return axes;
     }
@@ -61,9 +60,8 @@ public class AxeClient {
         String uri=propertiesFileUtils.getAppUrl("categorie.getAxeById");
         String uriSufix="/"+id;
         uri+=uriSufix;
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
-        Axe axe = GsonUtils.getObjectFromJson(jsonData,Axe.class);
+        String response = restTemplate.getForObject(uri,String.class);
+        Axe axe = GsonUtils.getObjectFromJson(response,Axe.class);
         return axe;
 
     }

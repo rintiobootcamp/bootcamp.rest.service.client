@@ -28,10 +28,9 @@ public class ProjetClient {
     public List<Projet> findAll() throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
         String uri=propertiesFileUtils.getAppUrl("projet.getAllProjet");
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
+        String response = restTemplate.getForObject(uri,String.class);
         Type typeOfObjectsListNew = new TypeToken<List<Projet>>() {}.getType();
-        List<Projet> projets = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
+        List<Projet> projets = GsonUtils.getObjectFromJson(response,typeOfObjectsListNew);
 
         return projets;
     }
@@ -57,9 +56,8 @@ public class ProjetClient {
         String uri=propertiesFileUtils.getAppUrl("projet.getProjetById");
         String uriSufix="/"+id;
         uri+=uriSufix;
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
-        Projet projet = GsonUtils.getObjectFromJson(jsonData,Projet.class);
+        String response = restTemplate.getForObject(uri,String.class);
+        Projet projet = GsonUtils.getObjectFromJson(response,Projet.class);
         return projet;
 
     }

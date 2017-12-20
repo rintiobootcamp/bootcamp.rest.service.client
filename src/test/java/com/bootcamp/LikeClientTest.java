@@ -14,8 +14,8 @@ public class LikeClientTest {
     @Test
     public void getAllLikeOrUnlikeByEntity() throws IOException {
         String entityType = "PROJET";
-        long startD=1513580119339L;
-        long endD=1513580181020L;
+        long startD=0;
+        long endD=0;
         LikeClient likeClient = new LikeClient();
         List <LikeTable> likeTables = likeClient.getAllLikeOrUnlikeByEntity(entityType,startD,endD);
         Gson gson = new Gson();

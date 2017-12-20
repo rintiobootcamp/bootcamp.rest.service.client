@@ -30,10 +30,9 @@ public class PilierClient {
 
     public List<Pilier> findAll() throws IOException {
         String uri=propertiesFileUtils.getAppUrl("categorie.getAllPilier");
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
+        String response = restTemplate.getForObject(uri,String.class);
         Type typeOfObjectsListNew = new TypeToken<List<Pilier>>() {}.getType();
-        List<Pilier> piliers = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
+        List<Pilier> piliers = GsonUtils.getObjectFromJson(response,typeOfObjectsListNew);
 
         return piliers;
     }
@@ -58,9 +57,8 @@ public class PilierClient {
         String uri=propertiesFileUtils.getAppUrl("categorie.getAllByIdPilier");
         String uriSufix="/"+id;
         uri+=uriSufix;
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
-        Pilier pilier = GsonUtils.getObjectFromJson(jsonData,Pilier.class);
+        String response = restTemplate.getForObject(uri,String.class);
+        Pilier pilier = GsonUtils.getObjectFromJson(response,Pilier.class);
         return pilier;
 
     }

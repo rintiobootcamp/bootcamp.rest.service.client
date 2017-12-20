@@ -28,11 +28,9 @@ public class SecteurClient {
     public  List<Secteur>  findAll() throws IOException {
         propertiesFileUtils= new PropertiesFileUtils();
         String uri=propertiesFileUtils.getAppUrl("categorie.getAllSecteu");
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
+        String response = restTemplate.getForObject(uri,String.class);
         Type typeOfObjectsListNew = new TypeToken<List<Secteur>>() {}.getType();
-        List<Secteur> secteurs = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
-
+        List<Secteur> secteurs = GsonUtils.getObjectFromJson(response,typeOfObjectsListNew);
         return secteurs;
     }
 
@@ -57,9 +55,8 @@ public class SecteurClient {
         String uri=propertiesFileUtils.getAppUrl("categorie.getSecteurById");
         String uriSufix="/"+id;
         uri+=uriSufix;
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
-        Secteur secteur = GsonUtils.getObjectFromJson(jsonData,Secteur.class);
+       String response = restTemplate.getForObject(uri,String.class);
+        Secteur secteur = GsonUtils.getObjectFromJson(response,Secteur.class);
         return secteur;
 
     }
