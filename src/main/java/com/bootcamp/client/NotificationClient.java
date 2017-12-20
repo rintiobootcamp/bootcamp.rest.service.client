@@ -1,25 +1,17 @@
 package com.bootcamp.client;
 
 import com.bootcamp.commons.utils.GsonUtils;
-import com.bootcamp.constants.AppConstant;
-import com.bootcamp.entities.Notification;
+import com.bootcamp.commons.ws.usecases.pivotone.NotificationInput;
 import com.bootcamp.utils.PropertiesFileUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.springframework.http.HttpEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
-public class NotificationClient implements AppConstant {
+public class NotificationClient {
 
     RestTemplate restTemplate;
     PropertiesFileUtils propertiesFileUtils;
@@ -30,9 +22,17 @@ public class NotificationClient implements AppConstant {
         propertiesFileUtils = new PropertiesFileUtils();
     }
 
-    public void sendNotification(Notification notification) throws IOException {
-        String uri = propertiesFileUtils.getAppUrl("notification-service-fonctionnel-create");
-        HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost(uri);
+    public void sendNotification(NotificationInput notification) throws IOException {
+        //String uri= propertiesFileUtils.getAppUrl("notification-service-fonctionnel-create");
+
+        String requestBody = GsonUtils.toJSONWithoutClassName(notification);
+        MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();
+        headers.add("Accept", "application/json");
+        headers.add("Content-Type", "application/json");
+        HttpEntity request = new HttpEntity(requestBody, headers);
+        String uri = "http://localhost:8092/notification/notifications";
+
+        boolean apiResponse = restTemplate.postForObject(uri, notification, Boolean.class);
+        System.out.println(apiResponse);
     }
 }

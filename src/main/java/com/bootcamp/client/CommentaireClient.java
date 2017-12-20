@@ -1,7 +1,6 @@
 package com.bootcamp.client;
 
 import com.bootcamp.commons.utils.GsonUtils;
-import com.bootcamp.constants.AppConstant;
 import com.bootcamp.entities.Commentaire;
 import com.bootcamp.utils.PropertiesFileUtils;
 import com.google.gson.reflect.TypeToken;
@@ -13,7 +12,10 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class CommentaireClient implements AppConstant {
+
+
+public class CommentaireClient {
+
 
     RestTemplate restTemplate;
     PropertiesFileUtils propertiesFileUtils;
@@ -26,58 +28,31 @@ public class CommentaireClient implements AppConstant {
 
     public List<Commentaire> getCommentByEntity(String entityType,int entityId) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("commentaire-service-fonctionnel-get-Commentaire-by-entity");
+        String uri=propertiesFileUtils.getAppUrl("commentaire.getAllByEntityType");
+
         String uriSufix="/"+entityType+"/"+entityId;
+        System.out.println("***le lien***** "+uri);
         uri+=uriSufix;
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
+         String response = restTemplate.getForObject(uri,String.class);
         Type typeOfObjectsListNew = new TypeToken<List<Commentaire>>() {
         }.getType();
-        List<Commentaire> commentaires = GsonUtils.getObjectFromJson(jsonData, typeOfObjectsListNew);
+        List<Commentaire> commentaires = GsonUtils.getObjectFromJson(response, typeOfObjectsListNew);
 
         return commentaires;
     }
 
-    public Commentaire getById(int id) throws IOException {
-        propertiesFileUtils = new PropertiesFileUtils();
-        String uri = propertiesFileUtils.getAppUrl("commentaire-service-fonctionnel-get-Commentaire-by-entity");
-        String uriSufix = "/" + id;
-        uri += uriSufix;
-        ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
-        String jsonData = response.getBody();
-        Type typeOfObjectsListNew = new TypeToken<List<Commentaire>>() {
-        }.getType();
-        Commentaire commentaire = GsonUtils.getObjectFromJson(jsonData, typeOfObjectsListNew);
 
-        return commentaire;
-
-    }
-
-    public List<Commentaire> getAllCommentByAllEntity(String entityType) throws IOException{
+    public List<Commentaire> getAllCommentByAllEntity(String entityType,long startDate, long endDate) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("commentaire-service-fonctionnel-get-AllComment-by-Allentity");
-        String uriSufix="/"+entityType;
+        String uri=propertiesFileUtils.getAppUrl("commentaire.getAllByEntity");
+        String uriSufix="/"+entityType+"?startDate="+startDate+"&endDate="+endDate;
         uri+=uriSufix;
-        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-        String jsonData = response.getBody();
+
+        String response = restTemplate.getForObject(uri,String.class);
         Type typeOfObjectsListNew = new TypeToken<List<Commentaire>>() {}.getType();
-        List<Commentaire> commentaires = GsonUtils.getObjectFromJson(jsonData,typeOfObjectsListNew);
+        List<Commentaire> commentaires = GsonUtils.getObjectFromJson(response,typeOfObjectsListNew);
         return commentaires;
 
     }
-
-//
-//    public List<Commentaire> getByEntityTypeClient(String entityType) throws IOException {
-//        propertiesFileUtils= new PropertiesFileUtils();
-//        String uri = propertiesFileUtils.getAppUrl("like-service-fonctionnel-get-like");
-//
-//        String uriSufix="/"+entityType;
-//        uri+=uriSufix;
-//        ResponseEntity<String> response = restTemplate.getForEntity(uri,String.class);
-//        String jsonData = response.getBody();
-//        List<Commentaire> commentaires  = GsonUtils.getObjectFromJson(jsonData, List.class);
-//        return commentaires;
-//    }
-
 
 }
