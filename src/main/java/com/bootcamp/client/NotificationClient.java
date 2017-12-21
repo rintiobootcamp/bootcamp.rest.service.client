@@ -30,9 +30,11 @@ public class NotificationClient {
         headers.add("Accept", "application/json");
         headers.add("Content-Type", "application/json");
         HttpEntity request = new HttpEntity(requestBody, headers);
-        String uri = "http://localhost:8092/notification/notifications";
+
+        String uri=propertiesFileUtils.getAppUrl("notification.uri");
+//        String uri = "http://localhost:8092/notification/notifications";
 
         boolean apiResponse = restTemplate.postForObject(uri, notification, Boolean.class);
-        System.out.println(apiResponse);
+//        System.out.println(apiResponse);
     }
 }
