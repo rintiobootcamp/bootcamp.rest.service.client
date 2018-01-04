@@ -23,7 +23,7 @@ public class CommentaireClientTest {
 
     @Test
     public void getCommentByEntity() throws IOException {
-        String entityType = "DEBAT";
+        String entityType = "PROJET";
         int entityId = 1;
         CommentaireClient commentaireClient = new CommentaireClient();
         List<Commentaire> commentaires = commentaireClient.getCommentByEntity(entityType,entityId);

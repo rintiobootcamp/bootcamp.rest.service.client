@@ -28,7 +28,7 @@ public class CommentaireClient {
 
     public List<Commentaire> getCommentByEntity(String entityType,int entityId) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
-        String uri=propertiesFileUtils.getAppUrl("commentaire.getAllByEntityType");
+        String uri=propertiesFileUtils.getAppUrl("commentaire.getByEntity");
 
         String uriSufix="/"+entityType+"/"+entityId;
         System.out.println("***le lien***** "+uri);
