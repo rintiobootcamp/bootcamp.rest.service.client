@@ -48,5 +48,18 @@ public class DebatClient {
         return debats;
     }
 
+    public List<Debat> getAllByEntityId(String entityType ,int entityId) throws IOException {
+        propertiesFileUtils= new PropertiesFileUtils();
+        String uri = propertiesFileUtils.getAppUrl("debat.basePath");
+//        System.out.println("***le lien***** "+uri);
+        String uriSufix="/"+entityType+"/"+entityId;
+        uri+=uriSufix;
+//        System.out.println("***le PREFIX***** "+uri);
+        String response = restTemplate.getForObject(uri,String.class);
+        Type typeOfObjectsListNew = new TypeToken<List<Debat>>() {}.getType();
+        List<Debat> debats  = GsonUtils.getObjectFromJson(response, typeOfObjectsListNew);
+        return debats;
+    }
+
 
 }

@@ -21,4 +21,15 @@ public class DebatClientTest {
         String data = gson.toJson(likeTables);
         System.out.println(data);
     }
+
+    @Test
+    public void getAllByEntityId() throws IOException {
+        String entityType = "PROJET";
+        int entityId = 1;
+        DebatClient debatClient = new DebatClient();
+        List <Debat> debats = debatClient.getAllByEntityId(entityType,entityId);
+        Gson gson = new Gson();
+        String data = gson.toJson(debats);
+        System.out.println(data);
+    }
 }

@@ -20,4 +20,15 @@ public class CommentaireClientTest {
         String data = gson.toJson(commentaires);
         System.out.println(data);
     }
+
+    @Test
+    public void getCommentByEntity() throws IOException {
+        String entityType = "DEBAT";
+        int entityId = 1;
+        CommentaireClient commentaireClient = new CommentaireClient();
+        List<Commentaire> commentaires = commentaireClient.getCommentByEntity(entityType,entityId);
+        Gson gson = new Gson();
+        String data = gson.toJson(commentaires);
+        System.out.println(data);
+    }
 }
