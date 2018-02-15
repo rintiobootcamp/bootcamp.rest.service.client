@@ -42,7 +42,7 @@ public class CommentaireClient {
     }
 
 
-    public List<Commentaire> getAllCommentByAllEntity(String entityType,long startDate, long endDate) throws IOException{
+    public List<Commentaire> getAllCommentByAllEntity(String entityType, String startDate, String endDate) throws IOException{
         propertiesFileUtils= new PropertiesFileUtils();
         String uri=propertiesFileUtils.getAppUrl("commentaire.getAllByEntity");
         String uriSufix="/"+entityType+"?startDate="+startDate+"&endDate="+endDate;

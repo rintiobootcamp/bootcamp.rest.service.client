@@ -22,7 +22,7 @@ import org.springframework.http.ResponseEntity;
  *
  * @author leger
  */
-public class LikeClient{
+public class LikeClient {
 
     RestTemplate restTemplate;
     PropertiesFileUtils propertiesFileUtils;
@@ -33,20 +33,20 @@ public class LikeClient{
         propertiesFileUtils = new PropertiesFileUtils();
     }
 
-public LikeWS getClient(String entityType, int id) throws IOException {
-        propertiesFileUtils= new PropertiesFileUtils();
+    public LikeWS getClient(String entityType, int id) throws IOException {
+        propertiesFileUtils = new PropertiesFileUtils();
         String uri = propertiesFileUtils.getAppUrl("like.like");
-        System.out.println("***le lien***** "+uri);
+        System.out.println("***le lien***** " + uri);
 
-        String uriSufix="/"+entityType+"/"+id;
-        uri+=uriSufix;
-        String response = restTemplate.getForObject(uri,String.class);
-        LikeWS like  = GsonUtils.getObjectFromJson(response, LikeWS.class);
+        String uriSufix = "/" + entityType + "/" + id;
+        uri += uriSufix;
+        String response = restTemplate.getForObject(uri, String.class);
+        LikeWS like = GsonUtils.getObjectFromJson(response, LikeWS.class);
         return like;
     }
 
     public LikeWS createLike(LikeWS likeWS) throws IOException {
-        String uri= propertiesFileUtils.getAppUrl("like.create");
+        String uri = propertiesFileUtils.getAppUrl("like.create");
 
         String requestBody = GsonUtils.toJSONWithoutClassName(likeWS);
         MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();
@@ -61,17 +61,17 @@ public LikeWS getClient(String entityType, int id) throws IOException {
         return likeWS;
     }
 
-
-    public List<LikeTable> getAllLikeOrUnlikeByEntity(String entityType,long startDate,long endDate) throws IOException {
-        propertiesFileUtils= new PropertiesFileUtils();
+    public List<LikeTable> getAllLikeOrUnlikeByEntity(String entityType, String startDate, String endDate) throws IOException {
+        propertiesFileUtils = new PropertiesFileUtils();
         String uri = propertiesFileUtils.getAppUrl("like.getAllByAllentity");
 //        System.out.println("***le lien***** "+uri);
-        String uriSufix="/"+entityType+"?startDate="+startDate+"&endDate="+endDate;
-        uri+=uriSufix;
+        String uriSufix = "/" + entityType + "?startDate=" + startDate + "&endDate=" + endDate;
+        uri += uriSufix;
 //        System.out.println("***le suffix***** "+uri);
-        String response = restTemplate.getForObject(uri,String.class);
-        Type typeOfObjectsListNew = new TypeToken<List<LikeTable>>() {}.getType();
-        List<LikeTable> likes  = GsonUtils.getObjectFromJson(response, typeOfObjectsListNew);
+        String response = restTemplate.getForObject(uri, String.class);
+        Type typeOfObjectsListNew = new TypeToken<List<LikeTable>>() {
+        }.getType();
+        List<LikeTable> likes = GsonUtils.getObjectFromJson(response, typeOfObjectsListNew);
         return likes;
     }
 

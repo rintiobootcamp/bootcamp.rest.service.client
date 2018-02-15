@@ -12,8 +12,8 @@ public class CommentaireClientTest {
     @Test
     public void getAllCommentByAllEntity() throws IOException {
         String entityType = "PROJET";
-        long startD=0;
-        long endD=0;
+        String startD="";
+        String endD="";
         CommentaireClient commentaireClient = new CommentaireClient();
         List <Commentaire> commentaires = commentaireClient.getAllCommentByAllEntity(entityType,startD,endD);
         Gson gson = new Gson();
