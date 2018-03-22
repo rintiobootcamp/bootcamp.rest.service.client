@@ -49,6 +49,7 @@ public class CommentaireClient {
         uri+=uriSufix;
 
         String response = restTemplate.getForObject(uri,String.class);
+        System.out.println("response from client "+response.toString());
         Type typeOfObjectsListNew = new TypeToken<List<Commentaire>>() {}.getType();
         List<Commentaire> commentaires = GsonUtils.getObjectFromJson(response,typeOfObjectsListNew);
         return commentaires;

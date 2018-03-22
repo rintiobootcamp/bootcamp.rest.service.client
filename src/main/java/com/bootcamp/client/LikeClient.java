@@ -64,10 +64,8 @@ public class LikeClient {
     public List<LikeTable> getAllLikeOrUnlikeByEntity(String entityType, String startDate, String endDate) throws IOException {
         propertiesFileUtils = new PropertiesFileUtils();
         String uri = propertiesFileUtils.getAppUrl("like.getAllByAllentity");
-//        System.out.println("***le lien***** "+uri);
         String uriSufix = "/" + entityType + "?startDate=" + startDate + "&endDate=" + endDate;
         uri += uriSufix;
-//        System.out.println("***le suffix***** "+uri);
         String response = restTemplate.getForObject(uri, String.class);
         Type typeOfObjectsListNew = new TypeToken<List<LikeTable>>() {
         }.getType();
