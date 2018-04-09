@@ -24,7 +24,7 @@ public class CommentaireClientTest {
     @Test
     public void getCommentByEntity() throws IOException {
         String entityType = "PROJET";
-        int entityId = 1;
+        int entityId = 100;
         CommentaireClient commentaireClient = new CommentaireClient();
         List<Commentaire> commentaires = commentaireClient.getCommentByEntity(entityType,entityId);
         Gson gson = new Gson();

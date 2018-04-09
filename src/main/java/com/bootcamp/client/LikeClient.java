@@ -75,8 +75,8 @@ public class LikeClient {
 
     public LikeWS getAllLikeOrUnlikeByEntity(String entityType, int entityId) throws IOException {
         propertiesFileUtils = new PropertiesFileUtils();
-        //String uri = propertiesFileUtils.getAppUrl("like.like");
-        String uri = "http://5.135.129.180:8020/like/likes";
+        String uri = propertiesFileUtils.getAppUrl("like.like");
+        //String uri = "http://5.135.129.180:8020/like/likes";
         String uriSufix = "/" + entityType + "/"+entityId;
         uri += uriSufix;
         System.out.println("url: "+uri);

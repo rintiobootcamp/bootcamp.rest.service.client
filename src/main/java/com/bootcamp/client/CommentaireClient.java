@@ -31,7 +31,7 @@ public class CommentaireClient {
         String uri=propertiesFileUtils.getAppUrl("commentaire.getByEntity");
 
         String uriSufix="/"+entityType+"/"+entityId;
-        System.out.println("***le lien***** "+uri);
+        //System.out.println("***le lien***** "+uri);
         uri+=uriSufix;
          String response = restTemplate.getForObject(uri,String.class);
         Type typeOfObjectsListNew = new TypeToken<List<Commentaire>>() {

@@ -1,4 +1,13 @@
-//package com.bootcamp;
+package com.bootcamp;
+
+import com.bootcamp.client.ProjetClient;
+import com.bootcamp.commons.utils.GsonUtils;
+import com.bootcamp.entities.Projet;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.util.List;
+
 //
 //import com.bootcamp.client.ProjetClient;
 //import com.bootcamp.client.SecteurClient;
@@ -11,18 +20,15 @@
 //import java.io.IOException;
 //import java.util.List;
 //
-//public class ProjetClientTest {
-//    @Test
-//    public void getProjets() throws IOException {
-//        ProjetClient projetClient = new ProjetClient();
-//        List<Projet> projets = projetClient.findAll();
-//        Gson gson = new Gson();
-//        for(Projet current:projets){
-//            String data = gson.toJson(current);
-//            System.out.println(data);
-//        }
-//
-//    }
+public class ProjetClientTest {
+    @Test
+    public void getProjets() throws IOException {
+        ProjetClient projetClient = new ProjetClient();
+        List<Projet> projets = projetClient.findAll();
+        String d = GsonUtils.toJSONWithoutClassName(projets);
+        System.out.println("Result "+d);
+
+    }
 //
 //    //@Test
 //    /*public void getProjetById() throws IOException {
@@ -33,4 +39,4 @@
 //        System.out.println(data);
 //    }*/
 //
-//}
+}
