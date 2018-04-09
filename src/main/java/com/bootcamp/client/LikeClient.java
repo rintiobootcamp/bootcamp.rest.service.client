@@ -73,4 +73,20 @@ public class LikeClient {
         return likes;
     }
 
+    public LikeWS getAllLikeOrUnlikeByEntity(String entityType, int entityId) throws IOException {
+        propertiesFileUtils = new PropertiesFileUtils();
+        //String uri = propertiesFileUtils.getAppUrl("like.like");
+        String uri = "http://5.135.129.180:8020/like/likes";
+        String uriSufix = "/" + entityType + "/"+entityId;
+        uri += uriSufix;
+        System.out.println("url: "+uri);
+        String response = restTemplate.getForObject(uri, String.class);
+        Type typeOfObjectsListNew = new TypeToken<LikeWS>() {
+        }.getType();
+        LikeWS likes = GsonUtils.getObjectFromJson(response, typeOfObjectsListNew);
+
+        return likes;
+    }
+
+
 }
