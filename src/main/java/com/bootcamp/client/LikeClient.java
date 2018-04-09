@@ -79,7 +79,7 @@ public class LikeClient {
         //String uri = "http://5.135.129.180:8020/like/likes";
         String uriSufix = "/" + entityType + "/"+entityId;
         uri += uriSufix;
-        System.out.println("url: "+uri);
+        //System.out.println("url: "+uri);
         String response = restTemplate.getForObject(uri, String.class);
         Type typeOfObjectsListNew = new TypeToken<LikeWS>() {
         }.getType();
