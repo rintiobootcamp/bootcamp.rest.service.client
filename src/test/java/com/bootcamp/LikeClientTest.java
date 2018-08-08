@@ -16,6 +16,8 @@ public class LikeClientTest {
     @Test
     public void getAllLikeOrUnlikeByEntity() throws IOException {
         String entityType = "PROJET";
+        String startD="";
+        String endD="";
         LikeClient likeClient = new LikeClient();
         LikeWS likes = likeClient.getAllLikeOrUnlikeByEntity(entityType,1);
         Gson gson = new Gson();

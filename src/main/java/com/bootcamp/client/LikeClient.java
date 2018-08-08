@@ -84,7 +84,6 @@ public class LikeClient {
         Type typeOfObjectsListNew = new TypeToken<LikeWS>() {
         }.getType();
         LikeWS likes = GsonUtils.getObjectFromJson(response, typeOfObjectsListNew);
-
         return likes;
     }
 
