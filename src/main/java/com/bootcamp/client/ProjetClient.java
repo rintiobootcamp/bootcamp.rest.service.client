@@ -31,23 +31,19 @@ public class ProjetClient {
         String response = restTemplate.getForObject(uri,String.class);
         Type typeOfObjectsListNew = new TypeToken<List<Projet>>() {}.getType();
         List<Projet> projets = GsonUtils.getObjectFromJson(response,typeOfObjectsListNew);
-
         return projets;
     }
 
     public Projet create(Projet projet) throws IOException {
         String uri= propertiesFileUtils.getAppUrl("projet.createProjet");
-
         String requestBody = GsonUtils.toJSONWithoutClassName(projet);
         MultiValueMap<String, Object> headers = new LinkedMultiValueMap<String, Object>();
         headers.add("Accept", "application/json");
         headers.add("Content-Type", "application/json");
         HttpEntity request = new HttpEntity(requestBody, headers);
-
         String apiResponse = restTemplate.postForObject(uri,
                 request, String.class);
         projet = GsonUtils.getObjectFromJson(apiResponse, Projet.class);
-
         return projet;
     }
 

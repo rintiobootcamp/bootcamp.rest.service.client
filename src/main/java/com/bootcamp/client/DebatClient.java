@@ -3,6 +3,7 @@ package com.bootcamp.client;
 import com.bootcamp.commons.utils.GsonUtils;
 import com.bootcamp.entities.Commentaire;
 import com.bootcamp.entities.Debat;
+import com.bootcamp.entities.Projet;
 import com.bootcamp.utils.PropertiesFileUtils;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,7 @@ public class DebatClient {
         return debats;
     }
 
+
     public List<Debat> getAllByEntityId(String entityType, int entityId) throws IOException {
         propertiesFileUtils = new PropertiesFileUtils();
         String uri = propertiesFileUtils.getAppUrl("debat.basePath");
@@ -58,6 +60,16 @@ public class DebatClient {
         }.getType();
         List<Debat> debats = GsonUtils.getObjectFromJson(response, typeOfObjectsListNew);
         return debats;
+    }
+
+    public Debat getById(int entityId) throws IOException {
+        propertiesFileUtils = new PropertiesFileUtils();
+        String uri = propertiesFileUtils.getAppUrl("debat.basePath");
+        String uriSufix = "/" + entityId;
+        uri += uriSufix;
+        String response = restTemplate.getForObject(uri,String.class);
+        Debat debat = GsonUtils.getObjectFromJson(response,Debat.class);
+        return debat;
     }
 
 }
